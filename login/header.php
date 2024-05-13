@@ -1,13 +1,16 @@
 <?php
+
+ini_set('display_errors', 1);
+
 session_start();
 
 if (!isset($_SESSION['user'])) {
     // Check if the "remember me" cookie exists
     if (isset($_COOKIE['remember_token'])) {
         // Retrieve the token from the cookie
-        $token = $_COOKIE['remember_token'];
+        $token = $_COOKIE['remember_token'];        
     } else {
-        header('location: login.php');
+        header('location: login.php');        
     }    
 }
 ?>
@@ -31,7 +34,8 @@ if (!isset($_SESSION['user'])) {
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="index.php" class="text-nowrap logo-img">
-                        <img src="assets/images/logos/dark-logo.svg" width="180" alt="" />
+                        <!-- <img src="assets/images/logos/dark-logo.svg" width="180" alt="" /> -->
+                        <h1>Login</h1>
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
@@ -93,3 +97,7 @@ if (!isset($_SESSION['user'])) {
             </header>
             <!--  Header End -->
             <div class="container-fluid">
+                <?php 
+                //var_dump($_SESSION); 
+                //var_dump($_COOKIE);
+                ?>

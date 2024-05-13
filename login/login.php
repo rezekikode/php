@@ -19,9 +19,10 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="index.php" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                    <img src="assets/images/logos/dark-logo.svg" width="180" alt="">
+                                    <!-- <img src="assets/images/logos/dark-logo.svg" width="180" alt=""> -->
+                                    <h1>Login</h1>
                                 </a>
-                                <p class="text-center">Your Social Campaigns</p>                                
+                                <p class="text-center">Welcome back! Please login to proceed.</p>                                
                                 <div class="" role="alert" id="message">
                                    
                                 </div>

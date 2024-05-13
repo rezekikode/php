@@ -1,4 +1,9 @@
 <?php
+
+function generateToken() {
+    return bin2hex(random_bytes(32)); // Generates a 64-character random token
+}
+
 // Define variables and initialize with empty values
 $email = $password = "";
 $email_err = $password_err = "";
@@ -31,6 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Authentication successful
             // Create a session and redirect to the dashboard
             session_start();
+
+            // Generate a random token
+            $token = generateToken();
+
+            // Store the token in a cookie
+            setcookie('remember_token', $token, time() + (86400 * 30), '/'); // Cookie expires in 30 days
+
             $_SESSION['user'] = 1;
             echo "1";
         } else {

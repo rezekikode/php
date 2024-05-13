@@ -2,4 +2,6 @@
 
 session_destroy();
 
-header("Location: login.php");
+setcookie('remember_token', '', time() - 3600, '/'); // Expire the cookie
+
+header("Location: index.php");

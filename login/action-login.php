@@ -1,15 +1,15 @@
 <?php
 // Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = "";
+$email = $password = "";
+$email_err = $password_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate username
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter username.";
+    // Validate email
+    if (empty(trim($_POST["email"]))) {
+        $email_err = "Please enter email.";
     } else {
-        $username = trim($_POST["username"]);
+        $email = trim($_POST["email"]);
     }
 
     // Validate password
@@ -20,22 +20,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check input errors before processing the login
-    if (empty($username_err) && empty($password_err)) {
+    if (empty($email_err) && empty($password_err)) {
         // Your authentication logic goes here
-        // For demonstration purposes, let's just check if username and password match
+        // For demonstration purposes, let's just check if email and password match
         // This is not secure and should not be used in production
-        $valid_username = 'admin';
+        $valid_email = 'test@example.com';
         $valid_password = 'password';
 
-        if ($username === $valid_username && $password === $valid_password) {
+        if ($email === $valid_email && $password === $valid_password) {
             // Authentication successful
-            echo "Login successful! Welcome, $username!";
+            // Create a session and redirect to the dashboard
+            session_start();
+            $_SESSION['user'] = 1;
+            echo "1";
         } else {
             // Authentication failed
-            echo "Invalid username or password. Please try again.";
+            echo "Invalid email or password. Please try again.";
         }
-    } else if (!empty($username_err)) {
-        echo $username_err;
+    } else if (!empty($email_err)) {
+        echo $email_err;
     } else if (!empty($password_err)) {
         echo $password_err;
     } else {

@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="assets/images/logos/favicon.png" />
+    <!-- <link rel="shortcut icon" type="image/png" href="assets/images/logos/favicon.png" /> -->
 
     <!-- Core Css -->
     <link rel="stylesheet" href="assets/css/styles.min.css" />
 
-    <title>Modernize Bootstrap Admin</title>
+    <title>Forgot Password</title>
 </head>
 
 <body>
@@ -24,8 +24,9 @@
                     <div class="col-md-8 col-lg-6 col-xxl-3 auth-card">
                         <div class="card mb-0">
                             <div class="card-body pt-5">
-                                <a href="main/index.html" class="text-nowrap logo-img text-center d-block mb-4 w-100">
-                                    <img src="assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />                                    
+                                <a href="index.php" class="text-nowrap logo-img text-center d-block mb-4 w-100">
+                                    <!-- <img src="assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />                                     -->
+                                    <h1>Forgot Password</h1>
                                 </a>
                                 <div class="mb-5 text-center">
                                     <p class="mb-0 ">

@@ -10,7 +10,7 @@ try {
     $db = new Database();
 
     // MySQL
-    $db->addConnection('db_mysql', 'localhost', 'testdb', 'root', 'root');
+    //$db->addConnection('db_mysql', 'localhost', 'testdb', 'root', 'root');
 
     // SQLite
     $database = __DIR__ . '/database.db';

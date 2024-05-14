@@ -10,8 +10,12 @@
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputPassword1" class="form-label">Old Password</label>
+                <input type="password" name="old_password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword2" class="form-label">New Password</label>
+                <input type="password" name="new_password" class="form-control" id="exampleInputPassword2">
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -31,6 +35,8 @@
                 if (xhr.responseText === "1") {
                     document.getElementById("message").innerHTML = "Profile updated successfully.";
                     document.getElementById("message").setAttribute("class", "alert alert-success");
+                    document.getElementById("exampleInputPassword1").value = "";
+                    document.getElementById("exampleInputPassword2").value = "";
                 } else {
                     document.getElementById("message").innerHTML = xhr.responseText;
                     document.getElementById("message").setAttribute("class", "alert alert-danger");

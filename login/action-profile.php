@@ -14,14 +14,55 @@ $userID = $_SESSION['user'];
 
 // Get the updated profile data from the form or any other source
 $email = $_POST['email'];
-$password = $_POST['password'];
+$old_password = $_POST['old_password'];
+$new_password = $_POST['new_password'];
+
+if (empty($email) || empty($old_password) || empty($new_password)) {
+    echo "All fields are required.";
+    exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo "Invalid email address.";
+    exit;
+}
+
+if (strlen($new_password) < 8) {
+    echo "Password must be at least 8 characters long.";
+    exit;
+}
+
+if ($old_password === $new_password) {
+    echo "New password must be different from the old password.";
+    exit;
+}
+
+$query = "SELECT email, password FROM users WHERE id = ?";
+
+$params = [
+    $userID
+];
+
+$user = $db->fetch($query, $params);
+
+if (!$user) {
+    echo "User not found.";
+    exit;
+}
+
+if (!password_verify($old_password, $user['password'])) {
+    echo "Old password is incorrect.";
+    exit;
+}
+
+$new_password = password_hash($new_password, PASSWORD_DEFAULT);
 
 // Prepare the SQL statement
 $query = "UPDATE users SET email = ?, password = ? WHERE id = ?";
 
 $params = [
     $email,
-    $password,
+    $new_password,
     $userID
 ];
 
@@ -31,3 +72,5 @@ if ($db->execute($query, $params)) {
 } else {
     echo "Failed to update profile.";
 }
+
+$db->close();    

@@ -23,9 +23,7 @@
                                     <h1>Login</h1>
                                 </a>
                                 <p class="text-center">Welcome back! Please login to proceed.</p>                                
-                                <div class="" role="alert" id="message">
-                                   
-                                </div>
+                                <div class="" role="alert" id="message"></div>
                                 <form id="loginForm">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>

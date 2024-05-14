@@ -2,8 +2,6 @@
 
 require_once __DIR__ . '/class/Database.php';
 
-$db = null;
-
 // Database configuration
 try {
     // Database

@@ -2,15 +2,34 @@
 
 class Database
 {
+    // Connections
     private $connections = [];
+
+    // Connection configurations
     private $configurations = [];
+
+    // Active connection name
     private $activeConnectionName;
+
+    // Active connection
     private $activeConnection;
 
+    /*
+        * Constructor
+        */
     public function __construct()
     {
     }
 
+    /*
+        * Add a new connection configuration
+        * @param string $name
+        * @param string $host
+        * @param string $dbName
+        * @param string $username
+        * @param string $password
+        * @param string $type
+        */
     public function addConnection($name, $host, $dbName, $username, $password, $type = 'mysql')
     {
         if (isset($this->configurations[$name])) {
@@ -37,6 +56,10 @@ class Database
         }
     }
 
+    /*
+        * Set the active connection
+        * @param string $name
+        */
     public function setActiveConnection($name)
     {
         if (isset($this->configurations[$name])) {
@@ -47,6 +70,10 @@ class Database
         }
     }
 
+    /*
+        * Get the active connection
+        * @return PDO
+        */
     private function getConnection()
     {
         if ($this->activeConnection === null) {
@@ -64,6 +91,12 @@ class Database
         return $this->activeConnection;
     }
 
+    /*
+        * Execute a query
+        * @param string $sql
+        * @param array $params
+        * @return PDOStatement
+        */
     public function query($sql, $params = [])
     {
         try {

@@ -7,7 +7,9 @@ $db = null;
 try {
     $db = new Database();
     $db->addConnection('db_mysql', 'localhost','testdb', 'root', 'root');
-    $db->addConnection('db_sqlite', 'sqlite','database.db', null, null, 'sqlite');    
+
+    $database = __DIR__ . '/database.db';
+    $db->addConnection('db_sqlite', 'sqlite', $database, null, null, 'sqlite');    
 } catch (Exception $e) {
-    echo 'Error: ' . $e->getMessage();
+    die($e->getMessage());
 }

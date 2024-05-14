@@ -1,5 +1,12 @@
 <?php
 
+ini_set('display_errors', 1);
+
+// Include config file
+require_once __DIR__ . '/config-db.php';
+
+$db->setActiveConnection('db_sqlite');
+
 // Define variables and initialize with empty values
 $email = $password = "";
 $email_err = $password_err = "";
@@ -25,26 +32,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Your authentication logic goes here
         // For demonstration purposes, let's just check if email and password match
         // This is not secure and should not be used in production
-        $valid_email = 'test@example.com';
-        $valid_password = 'password';
 
-        if ($email === $valid_email && $password === $valid_password) {
-            // Authentication successful
-            // Create a session and redirect to the dashboard
-            session_start();
+        $query = "SELECT * FROM users WHERE email = :email";
 
-            // Generate a random token
-            $token = bin2hex(random_bytes(32));
+        $params = [
+            ':email' => $email
+        ];
 
-            // Store the token in a cookie
-            setcookie('remember_token', $token, time() + (86400 * 30), '/'); // Cookie expires in 30 days
+        $user = $db->fetch($query, $params);
 
-            $_SESSION['user'] = 1;
-            echo "1";
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                // Authentication successful
+                // Create a session and redirect to the dashboard
+                session_start();
+
+                // Generate a random token
+                $token = bin2hex(random_bytes(32));
+
+                // Store the token in a cookie
+                setcookie('remember_token', $token, time() + (86400 * 30), '/'); // Cookie expires in 30 days
+
+                $_SESSION['user'] = $user['id'];
+                echo "1";
+            } else {
+                // Authentication failed
+                echo "Invalid email or password. Please try again.";
+            }
         } else {
             // Authentication failed
             echo "Invalid email or password. Please try again.";
-        }
+        }        
     } else if (!empty($email_err)) {
         echo $email_err;
     } else if (!empty($password_err)) {
@@ -53,3 +71,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "An error occurred. Please try again.";
     }
 }
+
+$db->close();

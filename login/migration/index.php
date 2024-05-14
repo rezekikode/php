@@ -18,7 +18,9 @@ $users =
 
 $db->execute($users);
 
-$users = "INSERT INTO users (email, password) VALUES ('test@example.com', 'password')";
+$password = password_hash('password', PASSWORD_DEFAULT);
+
+$users = "INSERT INTO users (email, password) VALUES ('test@example.com', '$password')";
 
 $db->execute($users);
 

@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 
 session_start();
 
+require_once 'config-db.php';
+
 if (!isset($_SESSION['user'])) {
     // Check if the "remember me" cookie exists
     if (isset($_COOKIE['remember_token'])) {

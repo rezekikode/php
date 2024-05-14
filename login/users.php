@@ -1,4 +1,7 @@
 <?php include 'header.php'; ?>
+<?php
+$db->setActiveConnection('db_sqlite');
+?>
 <div class="card">
     <div class="card-body">
         <h5 class="card-title fw-semibold mb-4">Users</h5>  
@@ -13,22 +16,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>admin</td>
-                        <td>
-                            <a href="edit-user.php?id=1" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="delete-user.php?id=1" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>user</td>
-                        <td>
-                            <a href="edit-user.php?id=2" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="delete-user.php?id=2" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
-                    </tr>
+                    <?php
+                    $query = "SELECT * FROM users";
+                    $users = $db->fetchAll($query);
+                    ?>
+                    <?php foreach ($users as $user) : ?>
+                        <tr>
+                            <th scope="row"><?= $user['id'] ?></th>
+                            <td><?= $user['email'] ?></td>
+                            <td>
+                                <a href="edit-user.php?id=<?= $user['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="delete-user.php?id=<?= $user['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>                    
                 </tbody>
             </table>   
     </div>

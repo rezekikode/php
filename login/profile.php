@@ -1,4 +1,19 @@
 <?php include 'header.php'; ?>
+<?php
+$db->setActiveConnection('db_sqlite');
+
+$query = "SELECT email FROM users WHERE id = ?";
+$params = [
+    $_SESSION['user']
+];
+$user = $db->fetch($query, $params);
+
+if ($user) {
+    $email = $user['email'];
+} else {
+    $email = "";
+}
+?>
 <div class="card">
     <div class="card-body">
         <h5 class="card-title fw-semibold mb-4">Profile</h5>
@@ -6,7 +21,7 @@
         <form id="profileForm">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" name="email" value="<?= $email ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
@@ -16,6 +31,7 @@
             <div class="mb-3">
                 <label for="exampleInputPassword2" class="form-label">New Password</label>
                 <input type="password" name="new_password" class="form-control" id="exampleInputPassword2">
+                <div id="newPasswordHelp" class="form-text">Leave this field empty if you don't want to change your password.</div>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>

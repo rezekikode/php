@@ -17,8 +17,13 @@ $email = $_POST['email'];
 $old_password = $_POST['old_password'];
 $new_password = $_POST['new_password'];
 
-if (empty($email) || empty($old_password) || empty($new_password)) {
-    echo "All fields are required.";
+if (empty($email)) {
+    echo "Email is required.";
+    exit;
+}
+
+if (empty($old_password)) {
+    echo "Old password is required.";
     exit;
 }
 
@@ -27,12 +32,12 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-if (strlen($new_password) < 8) {
+if (!empty($new_password) && strlen($new_password) < 8) {
     echo "Password must be at least 8 characters long.";
     exit;
 }
 
-if ($old_password === $new_password) {
+if (!empty($new_password) && $old_password === $new_password) {
     echo "New password must be different from the old password.";
     exit;
 }
@@ -55,7 +60,11 @@ if (!password_verify($old_password, $user['password'])) {
     exit;
 }
 
-$new_password = password_hash($new_password, PASSWORD_DEFAULT);
+if (!empty($new_password)) {
+    $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+} else {
+    $new_password = $user['password'];
+}
 
 // Prepare the SQL statement
 $query = "UPDATE users SET email = ?, password = ? WHERE id = ?";

@@ -27,7 +27,17 @@
 
         fetch('http://localhost/php/microservice/back/user/list.php')
             .then(response => response.json())
-            .then(response => {                
+            .then(response => {       
+                if (response.data.length === 0) {
+                    table.removeChild(loadingRow);
+                    const emptyRow = document.createElement('tr');
+                    emptyRow.innerHTML = 
+                        `
+                        <td colspan="3">No data</td>
+                        `;
+                    table.appendChild(emptyRow);
+                    return;
+                }
                 response.data.forEach(user => {
                     const tr = document.createElement('tr');
                     tr.innerHTML =

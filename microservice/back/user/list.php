@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-require 'db.php';
+require_once __DIR__ . '/db.php';
 
 if ($pdo) {
     $stmt = $pdo->query('SELECT * FROM users');

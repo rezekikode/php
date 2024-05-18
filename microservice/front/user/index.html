@@ -6,16 +6,19 @@
 
 <body>
     <h1>User</h1>
+    <a href="create.html">Create</a>
+    <hr>
     <table border="1">
         <tr>
             <th>Id</th>
-            <th>Name</th>
             <th>Email</th>
+            <th>Actions</th>
         </tr>
     </table>
     <script>
         const table = document.querySelector('table');
         const loadingRow = document.createElement('tr');
+
         loadingRow.innerHTML = 
             `
             <td colspan="3">Loading...</td>
@@ -24,19 +27,33 @@
 
         fetch('http://localhost/php/microservice/back/user/list.php')
             .then(response => response.json())
-            .then(response => {
-                table.removeChild(loadingRow);
+            .then(response => {                
                 response.data.forEach(user => {
                     const tr = document.createElement('tr');
                     tr.innerHTML =
                         `
                         <td>${user.id}</td>
-                        <td>${user.name}</td>
                         <td>${user.email}</td>
+                        <td>
+                            <a href="edit.html?id=${user.id}">Edit</a> |
+                            <a href="delete.html?id=${user.id}">Delete</a>
+                        </td>
                         `;
                     table.appendChild(tr);
                 });
-            });
+            })
+            .catch(error => {
+                table.removeChild(loadingRow);
+                const errorRow = document.createElement('tr');
+                errorRow.innerHTML = 
+                    `
+                    <td colspan="3">An error occurred</td>
+                    `;
+                table.appendChild(errorRow);
+            })
+            .finally(() => {
+                table.removeChild(loadingRow);
+            })
     </script>
 </body>
 

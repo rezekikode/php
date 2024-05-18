@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <p>Click the button to test the connection to the back-end microservice.</p>        
+        <button>Test</button>
+        <hr>
+        <div id="message"></div>
+        <script>
+            document.querySelector('button').addEventListener('click', function() {
+                fetch('http://localhost/php/microservice/back/hello-world.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.querySelector('#message').innerHTML = data.message;
+                    });
+            });
+        </script>
+    </body>
+</html>

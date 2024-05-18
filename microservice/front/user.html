@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <title>User</title>
+</head>
+
+<body>
+    <h1>User</h1>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </table>
+    <script>
+        const table = document.querySelector('table');
+        const loadingRow = document.createElement('tr');
+        loadingRow.innerHTML = `
+            <td colspan="3">Loading...</td>
+        `;
+        table.appendChild(loadingRow);
+
+        fetch('http://localhost/php/microservice/back/user/list.php')
+            .then(response => response.json())
+            .then(response => {
+                table.removeChild(loadingRow);
+                response.data.forEach(user => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML =
+                        `
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        `;
+                    table.appendChild(tr);
+                });
+            });
+    </script>
+</body>
+
+</html>

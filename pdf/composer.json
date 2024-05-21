@@ -1,0 +1,19 @@
+{
+    "name": "rezekikode/php-pdf",
+    "description": "PHP PDF",
+    "require": {
+        "dompdf/dompdf": "^3.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rezekikode\\PhpPdf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rezeki Kode",
+            "email": "rezekikode@gmail.com"
+        }
+    ]
+}
